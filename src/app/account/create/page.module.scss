@@ -1,0 +1,9 @@
+.container {
+  @include flex-center(column);
+  padding: 1rem;
+}
+
+.title {
+  @include font-display-01(bold);
+  margin-bottom: 1rem;
+}

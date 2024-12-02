@@ -1,0 +1,42 @@
+.accountList {
+  margin-top: 1rem;
+  
+  @include media-for-range(0, m) {
+    @include flex-center(column);
+  gap: 20px;
+  }
+
+  @include media-for-range(l) {
+    display: grid;
+    grid-gap: 28px 20px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .accountItem {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid $neutral-color-400;
+    border-radius: 0.25rem;
+  }
+
+  .accountTitle {
+    @include font-display-02(bold);
+    overflow-wrap: break-word;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .accountBalance {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .accountLink {
+    color: $blue-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

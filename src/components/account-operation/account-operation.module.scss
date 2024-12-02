@@ -1,0 +1,57 @@
+.container {
+  margin-bottom: 2rem;
+}
+
+.title {
+  @include font-display-02(bold);
+  margin-bottom: 1rem;
+}
+
+.balance {
+  margin-bottom: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.input {
+  padding: 0.5rem;
+  border: 1px solid $neutral-color-400;
+  border-radius: 0.25rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  color: white;
+  cursor: pointer;
+
+  &.deposit {
+    background-color: $blue-color;
+
+    &:hover {
+      background-color: $blue-color;
+    }
+  }
+
+  &.withdraw {
+    background-color: $red-color;
+
+    &:hover {
+      background-color: $red-color;
+    }
+  }
+
+  &.transfer {
+    background-color: $green-color;
+
+    &:hover {
+      background-color: $green-color;
+    }
+  }
+}
+

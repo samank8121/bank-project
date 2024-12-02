@@ -1,0 +1,92 @@
+$media-ranges: (
+    0: 0px,
+    xs: 576px,
+    s: 768px,
+    m: 992px,
+    l: 1200px,
+    xl: 1920px,
+);
+
+@mixin media-for-xs {
+    @media screen and (max-width: map-get($media-ranges, xs)) {
+        @content;
+    }
+}
+
+@mixin media-for-s {
+    @media screen and (min-width: (map-get($media-ranges, xs) + 1)) and (max-width: map-get($media-ranges, s)) {
+        @content;
+    }
+}
+
+@mixin media-for-m {
+    @media screen and (min-width: (map-get($media-ranges, s) + 1)) and (max-width: map-get($media-ranges, m)) {
+        @content;
+    }
+}
+
+@mixin media-for-l {
+    @media screen and (min-width: (map-get($media-ranges, m) + 1)) and (max-width: map-get($media-ranges, l)) {
+        @content;
+    }
+}
+
+@mixin media-for-xl {
+    @media screen and (min-width: (map-get($media-ranges, l) + 1)) and (max-width: map-get($media-ranges, xl)) {
+        @content;
+    }
+}
+
+@mixin media-for-xxl {
+    @media screen and (min-width: (map-get($media-ranges, xl) + 1)) {
+        @content;
+    }
+}
+
+// usage examples
+@mixin media-for-range($from, $to: 0) {
+    @media screen and #{if($to != 0, '(min-width:' + (map-get($media-ranges, $from) + 1) + ') and (max-width:' + map-get($media-ranges, $to) + ')', '(min-width:' + (map-get($media-ranges, $from) + 1) + ')')} {
+        @content;
+    }
+}
+
+
+@mixin flex-center-center($direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-center($direction: row) {
+    display: flex;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin flex-start($direction: row) {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: $direction;
+}
+
+@mixin flex-end($direction: row) {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: $direction;
+}
+
+$letter-spacing: 0.02px;
+
+@mixin font-display-01($font-weight) {
+    font-weight: $font-weight;
+    font-size: 2rem;
+    line-height: 76px;
+    letter-spacing: $letter-spacing;
+}
+
+@mixin font-display-02($font-weight) {
+    font-weight: $font-weight;
+    font-size: 1.5rem;
+    letter-spacing: $letter-spacing;
+}
