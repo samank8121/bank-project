@@ -17,7 +17,7 @@ const AccountStatement: FC<AccountStatementProps> = ({ transactions }) => {
     return result;
   };
   return (
-    <div className={styles.container}>
+    <div className={styles.accountStatement}>
       <h2 className={styles.title}>Account Statement</h2>
       <table className={styles.table}>
         <thead className={styles.tableHeader}>

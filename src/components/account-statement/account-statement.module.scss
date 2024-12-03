@@ -1,36 +1,35 @@
-.container {
-    margin-top: 2rem;
-  }
-  
+.accountStatement {
+  margin-top: 1rem;
+  width: 100%;
+
   .title {
     @include font-display-02(bold);
     margin-bottom: 1rem;
   }
-  
+
   .table {
     width: 100%;
     border-collapse: collapse;
   }
-  
+
   .tableHeader {
     background-color: $neutral-color-200;
   }
-  
+
   .tableHeaderCell {
     padding: 0.5rem;
     text-align: left;
     border-bottom: 2px solid $neutral-color-300;
   }
-  
+
   .tableRow {
     &:nth-child(even) {
       background-color: $neutral-color-100;
     }
   }
-  
+
   .tableCell {
     padding: 0.5rem;
     border-bottom: 1px solid $neutral-color-300;
   }
-  
-  
+}

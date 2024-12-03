@@ -3,6 +3,7 @@ import AccountOperations from '@/components/account-operation';
 import AccountStatement from '@/components/account-statement';
 import prisma from '@/shared/data/prisma';
 import { Metadata } from 'next';
+import styles from './page.module.scss';
 
 export const metadata: Metadata = {
   title: "Account Page",
@@ -30,8 +31,8 @@ export default async function AccountPage({
   }
 
   return (
-    <main>
-      <h1>Account: {account.iban}</h1>
+    <main className={styles.accountPage}>
+      <h1 className={styles.title}>Account: {account.iban}</h1>
       <AccountOperations
         accountId={account.id}
         initialBalance={account.balance}

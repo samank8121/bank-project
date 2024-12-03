@@ -1,15 +1,18 @@
-@import 'variables';
-@import 'mixins';
+@import './variables.scss';
+@import './mixins.scss';
 
 body {
   font-family: $font-stack;
   background-color: #f4f4f4;
   color: #333;
+  margin:0;
+  width: 100%;
+  overflow-x:hidden;
+  min-width: 360px;
+  @media screen and (max-width: 360px) {
+    overflow-x: scroll;
+  }
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
+
 

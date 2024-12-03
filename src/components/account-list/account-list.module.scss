@@ -1,20 +1,19 @@
 .accountList {
   margin-top: 1rem;
-  
-  @include media-for-range(0, m) {
-    @include flex-center(column);
+  @include flex-center(column);
   gap: 20px;
-  }
 
-  @include media-for-range(l) {
+  @include media-for-range(m) {
     display: grid;
-    grid-gap: 28px 20px;
+
+    grid-gap: 18px 10px;
     grid-template-columns: repeat(2, 1fr);
   }
 
   .accountItem {
+    box-sizing: border-box;
     width: 100%;
-    padding: 1rem;
+    padding: 20px;
     border: 1px solid $neutral-color-400;
     border-radius: 0.25rem;
   }

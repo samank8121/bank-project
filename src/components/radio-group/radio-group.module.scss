@@ -1,0 +1,29 @@
+.radioGroup {
+  @include flex-center;
+  gap: 10px;
+
+  .radioOption {
+    @include flex-center;
+    gap: 8px;
+
+    input[type='radio'] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid $blue-color;
+      border-radius: 50%;
+      outline: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:checked {
+        background-color: $blue-color;
+        border-color: $blue-color;
+      }
+    }
+
+    .radioLabel {
+      cursor: pointer;
+    }
+  }
+}

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 export default function CreateAccount() {
   return (
-    <main className={styles.container}>
+    <main className={styles.createAccount}>
       <h1 className={styles.title}>Create New Account</h1>
       <CreateAccountForm />
     </main>

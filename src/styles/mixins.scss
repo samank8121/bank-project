@@ -1,56 +1,3 @@
-$media-ranges: (
-    0: 0px,
-    xs: 576px,
-    s: 768px,
-    m: 992px,
-    l: 1200px,
-    xl: 1920px,
-);
-
-@mixin media-for-xs {
-    @media screen and (max-width: map-get($media-ranges, xs)) {
-        @content;
-    }
-}
-
-@mixin media-for-s {
-    @media screen and (min-width: (map-get($media-ranges, xs) + 1)) and (max-width: map-get($media-ranges, s)) {
-        @content;
-    }
-}
-
-@mixin media-for-m {
-    @media screen and (min-width: (map-get($media-ranges, s) + 1)) and (max-width: map-get($media-ranges, m)) {
-        @content;
-    }
-}
-
-@mixin media-for-l {
-    @media screen and (min-width: (map-get($media-ranges, m) + 1)) and (max-width: map-get($media-ranges, l)) {
-        @content;
-    }
-}
-
-@mixin media-for-xl {
-    @media screen and (min-width: (map-get($media-ranges, l) + 1)) and (max-width: map-get($media-ranges, xl)) {
-        @content;
-    }
-}
-
-@mixin media-for-xxl {
-    @media screen and (min-width: (map-get($media-ranges, xl) + 1)) {
-        @content;
-    }
-}
-
-// usage examples
-@mixin media-for-range($from, $to: 0) {
-    @media screen and #{if($to != 0, '(min-width:' + (map-get($media-ranges, $from) + 1) + ') and (max-width:' + map-get($media-ranges, $to) + ')', '(min-width:' + (map-get($media-ranges, $from) + 1) + ')')} {
-        @content;
-    }
-}
-
-
 @mixin flex-center-center($direction: row) {
     display: flex;
     flex-direction: $direction;
@@ -81,7 +28,6 @@ $letter-spacing: 0.02px;
 @mixin font-display-01($font-weight) {
     font-weight: $font-weight;
     font-size: 2rem;
-    line-height: 76px;
     letter-spacing: $letter-spacing;
 }
 
@@ -89,4 +35,58 @@ $letter-spacing: 0.02px;
     font-weight: $font-weight;
     font-size: 1.5rem;
     letter-spacing: $letter-spacing;
+}
+$media-ranges: (
+  0: 0px,
+  xs: 576px,
+  s: 768px,
+  m: 992px,
+  l: 1200px,
+  xl: 1920px,
+);
+
+@mixin media-for-xs {
+  @media screen and (max-width: map-get($media-ranges, xs)) {
+    @content;
+  }
+}
+
+@mixin media-for-s {
+  @media screen and (min-width: (map-get($media-ranges, xs) + 1)) and (max-width: map-get($media-ranges, s)) {
+    @content;
+  }
+}
+
+@mixin media-for-m {
+  @media screen and (min-width: (map-get($media-ranges, s) + 1)) and (max-width: map-get($media-ranges, m)) {
+    @content;
+  }
+}
+
+@mixin media-for-l {
+  @media screen and (min-width: (map-get($media-ranges, m) + 1)) and (max-width: map-get($media-ranges, l)) {
+    @content;
+  }
+}
+
+@mixin media-for-xl {
+  @media screen and (min-width: (map-get($media-ranges, l) + 1)) and (max-width: map-get($media-ranges, xl)) {
+    @content;
+  }
+}
+
+@mixin media-for-xxl {
+  @media screen and (min-width: (map-get($media-ranges, xl) + 1)) {
+    @content;
+  }
+}
+
+//  usage examples
+//  @include media-for-range(xs, m)  - (min-width: 577px) and (max-width: 992px)
+//  @include media-for-range(0, xs)  - (min-width: 1px) and (max-width: 576px)
+//  @include media-for-range(xs)  - (min-width: 577px))
+@mixin media-for-range($from, $to: 0) {
+  @media screen and #{if($to!=0, '(min-width:' + (map-get($map: $media-ranges, $key: $from) + 1) + ') and (max-width:' + map-get($map: $media-ranges, $key: $to) + ')' , '(min-width:' + (map-get($map: $media-ranges, $key: $from) + 1) ')' )} {
+    @content;
+  }
 }

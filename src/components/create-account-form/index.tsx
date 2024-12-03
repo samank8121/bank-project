@@ -30,7 +30,7 @@ export default function CreateAccountForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={handleSubmit} className={styles.accountForm}>
       <div className={styles.formGroup}>
         <label htmlFor='iban' className={styles.label}>IBAN:</label>
         <input

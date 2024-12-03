@@ -20,7 +20,7 @@ export default async function Home() {
   });
 
   return (
-    <main className={styles.container}>
+    <main className={styles.mainPage}>
       <h1 className={styles.title}>Bank Accounts</h1>
       <Link href='/account/create'>Create New Account</Link>
       <AccountList accounts={accounts} />
