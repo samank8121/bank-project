@@ -63,8 +63,7 @@ export async function POST(req: Request) {
       success: true,
       balance: updatedFromAccount.balance,
     });
-  } catch (error) {
-    console.log(error);
+  } catch {
     const transfer = getMessage('account', 'transfer');
     return NextResponse.json(
       { success: false, error: getMessage('errors', 'failedTo', {'name': transfer}) },
