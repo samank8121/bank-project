@@ -1,23 +1,15 @@
 import AccountList from '@/components/account-list';
-import prisma from '@/shared/data/prisma';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import styles from './page.module.scss';
+import { getAllAcounts } from '@/shared/data/account/get-account';
 
 export const metadata: Metadata = {
   title: 'Home Page',
   description: 'Home Page',
 };
 export default async function Home() {
-  const accounts = await prisma.account.findMany({
-    include: {
-      transactions: {
-        orderBy: {
-          date: 'desc',
-        },
-      },
-    },
-  });
+  const accounts = await getAllAcounts();
 
   return (
     <main className={styles.mainPage}>

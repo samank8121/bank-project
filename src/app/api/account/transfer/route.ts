@@ -22,6 +22,12 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    if (fromAccount.iban === toIban) {
+      return NextResponse.json(
+        { success: false, error: 'You are sending to yourself' },
+        { status: 400 }
+      );
+    }    
 
     const [updatedFromAccount] = await prisma.$transaction([
       prisma.account.update({

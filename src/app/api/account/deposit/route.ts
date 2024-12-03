@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {  
   const { accountId, amount } = await req.json();
-  console.log('api deposit comeeeeee',  accountId, amount);
   try {
     const account = await prisma.account.update({
       where: { id: accountId },

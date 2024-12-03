@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 import AccountOperations from '@/components/account-operation';
 import AccountStatement from '@/components/account-statement';
-import prisma from '@/shared/data/prisma';
 import { Metadata } from 'next';
 import styles from './page.module.scss';
+import { getBaseAccount } from '@/shared/data/account/get-account';
 
 export const metadata: Metadata = {
   title: "Account Page",
@@ -16,16 +16,7 @@ export default async function AccountPage({
   params: { id: string };
 }) {
   const { id } = await params;
-  const account = await prisma.account.findUnique({
-    where: { id: id },
-    include: {
-      transactions: {
-        orderBy: {
-          date: 'desc',
-        },
-      },
-    },
-  });
+  const account = await getBaseAccount(id);
   if (!account) {
     notFound();
   }
