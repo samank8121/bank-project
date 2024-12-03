@@ -20,8 +20,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, account });
-  } catch (error) {
-    console.log(error);
+  } catch {
     const create = getMessage('account', 'create');
     return NextResponse.json(
       { success: false, error: getMessage('errors', 'failedTo', {'name': create}) },

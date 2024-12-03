@@ -31,8 +31,7 @@ export async function POST(req: Request) {
       success: true,
       balance: updatedAccount.balance,
     });
-  } catch (error) {
-    console.log(error);
+  } catch {
     const withdraw = getMessage('account', 'withdraw');
     return NextResponse.json(
       { success: false, error: getMessage('errors', 'failedTo', {'name': withdraw}) },

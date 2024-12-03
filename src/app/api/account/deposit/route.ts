@@ -19,8 +19,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, balance: account.balance });
-  } catch (error) {
-    console.log(error);
+  } catch {
     const deposit = getMessage('account', 'deposit');
     return NextResponse.json(
       { success: false, error: getMessage('errors', 'failedTo', {'name': deposit}) },
