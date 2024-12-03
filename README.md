@@ -1,8 +1,9 @@
 ## Getting Started
 1. create .env file with this key:
-    - DATABASE_URL=... //here put the connection string of your postgressql
+    - DATABASE_URL=... //here is the connection string of your postgressql which docker user that
 2. yarn install
-3. Apply Schema Changes to Database: 
+3. docker-compose up -d //for creating database 
+4. Apply Schema Changes to Database: 
     - yarn prisma generate
     - yarn prisma db push  
 
