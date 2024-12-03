@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import { fetchPost } from '@/shared/utils/fetch-helper';
 import styles from './account-operation.module.scss';
 import RadioGroup from '../radio-group';
+import { useMessage } from '@/shared/hooks/useMessage';
+import { capitalizeFirstLetter } from '@/shared/utils/capitalize';
+import { getMessage } from '@/messages';
 
 type AccountOperationsProps = {
   accountId: string;
@@ -13,9 +16,9 @@ type AccountOperationsProps = {
 
 type OperationType = 'deposit' | 'withdraw' | 'transfer';
 const options: { label: string; value: OperationType }[] = [
-  { label: 'Deposit', value: 'deposit' },
-  { label: 'Withdraw', value: 'withdraw' },
-  { label: 'Transfer', value: 'transfer' },
+  { label: capitalizeFirstLetter(getMessage('account', 'deposit')), value: 'deposit' },
+  { label: capitalizeFirstLetter(getMessage('account','withdraw')), value: 'withdraw' },
+  { label: capitalizeFirstLetter(getMessage('account','transfer')), value: 'transfer' },
 ];
 
 const AccountOperations: FC<AccountOperationsProps> = ({
@@ -27,6 +30,7 @@ const AccountOperations: FC<AccountOperationsProps> = ({
   const [toIban, setToIban] = useState('');
   const [operation, setOperation] = useState<OperationType>('deposit');
   const router = useRouter();
+  const getMessage = useMessage();
 
   const handleOperation = async () => {
     const endpoint = `/api/account/${operation}`;
@@ -52,11 +56,15 @@ const AccountOperations: FC<AccountOperationsProps> = ({
 
   return (
     <div className={styles.accountOperation}>
-      <h2 className={styles.title}>Account Operations</h2>
-      <p className={styles.balance}>Current Balance: ${balance.toFixed(2)}</p>
+      <h2 className={styles.title}>
+        {getMessage('account', 'accountOperation')}
+      </h2>
+      <p className={styles.balance}>
+        {getMessage('account', 'showBalance', { balance: balance.toFixed(2) })}
+      </p>
       <div className={styles.inputGroup}>
         <RadioGroup
-          name='example'
+          name='operationType'
           options={options}
           selectedValue={operation}
           onChange={(value) => setOperation(value as OperationType)}
@@ -66,7 +74,7 @@ const AccountOperations: FC<AccountOperationsProps> = ({
           type='number'
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder='Amount'
+          placeholder={getMessage('account','amount')}
           className={styles.input}
         />
         {operation === 'transfer' && (
@@ -74,7 +82,7 @@ const AccountOperations: FC<AccountOperationsProps> = ({
             type='text'
             value={toIban}
             onChange={(e) => setToIban(e.target.value)}
-            placeholder='To IBAN'
+            placeholder={getMessage('account','toIBAN')}
             className={styles.input}
           />
         )}
@@ -83,9 +91,9 @@ const AccountOperations: FC<AccountOperationsProps> = ({
           className={`${styles.button} ${styles[operation]}`}
           onClick={handleOperation}
         >
-          {operation.charAt(0).toUpperCase() + operation.slice(1)}
+          {capitalizeFirstLetter(operation)}
         </button>
-      </div>     
+      </div>
     </div>
   );
 };

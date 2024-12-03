@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/shared/data/prisma';
+import { getMessage } from '@/messages';
 
 export async function POST(req: Request) {
   const { accountId, amount } = await req.json();
@@ -8,7 +9,7 @@ export async function POST(req: Request) {
     const account = await prisma.account.findUnique({ where: { id: accountId } });
     if (!account || account.balance < amount) {
       return NextResponse.json(
-        { success: false, error: 'Insufficient funds' },
+        { success: false, error: getMessage('account', 'insufficientFund') },
         { status: 400 }
       );
     }
@@ -32,8 +33,9 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.log(error);
+    const withdraw = getMessage('account', 'withdraw');
     return NextResponse.json(
-      { success: false, error: 'Failed to withdraw' },
+      { success: false, error: getMessage('errors', 'failedTo', {'name': withdraw}) },
       { status: 400 }
     );
   }

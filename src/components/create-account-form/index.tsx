@@ -3,11 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './create-account-form.module.scss'
+import { useMessage } from '@/shared/hooks/useMessage';
 
 export default function CreateAccountForm() {
   const [iban, setIban] = useState('');
   const [initialBalance, setInitialBalance] = useState('');
   const router = useRouter();
+  const getMessage = useMessage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ export default function CreateAccountForm() {
 
     const data = await response.json();
     if (data.success) {
-      alert('Account created successfully!');
+      alert(getMessage('account', 'createSuccessfully'));
       router.push('/');
     } else {
       alert(data.error);
@@ -32,7 +34,7 @@ export default function CreateAccountForm() {
   return (
     <form onSubmit={handleSubmit} className={styles.accountForm}>
       <div className={styles.formGroup}>
-        <label htmlFor='iban' className={styles.label}>IBAN:</label>
+        <label htmlFor='iban' className={styles.label}>{getMessage('account','IBAN')}</label>
         <input
           type='text'
           id='iban'
@@ -43,7 +45,7 @@ export default function CreateAccountForm() {
         />
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor='initialBalance' className={styles.label}>Initial Balance:</label>
+        <label htmlFor='initialBalance' className={styles.label}>{getMessage('account','initialBalance')}</label>
         <input
           type='number'
           id='initialBalance'
@@ -55,7 +57,7 @@ export default function CreateAccountForm() {
           className={styles.input}
         />
       </div>
-      <button type='submit' className={styles.submitButton}>Create Account</button>
+      <button type='submit' className={styles.submitButton}>{getMessage('account','createAccount')}</button>
     </form>
   );
 }

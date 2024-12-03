@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/shared/data/prisma';
 import { isValidIBAN } from '@/shared/utils/iban';
+import { getMessage } from '@/messages';
 
 export async function POST(req: Request) {
   const { accountId: fromAccountId, toIban, amount } = await req.json();
 
   if (!isValidIBAN(toIban)) {
     return NextResponse.json(
-      { success: false, error: 'Invalid IBAN' },
+      { success: false, error: getMessage('account','invalidIban') },
       { status: 400 }
     );
   }
@@ -18,13 +19,13 @@ export async function POST(req: Request) {
     });
     if (!fromAccount || fromAccount.balance < amount) {
       return NextResponse.json(
-        { success: false, error: 'Insufficient funds' },
+        { success: false, error: getMessage('account','insufficientFund') },
         { status: 400 }
       );
     }
     if (fromAccount.iban === toIban) {
       return NextResponse.json(
-        { success: false, error: 'You are sending to yourself' },
+        { success: false, error: getMessage('account','sameAccount') },
         { status: 400 }
       );
     }    
@@ -64,8 +65,9 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.log(error);
+    const transfer = getMessage('account', 'transfer');
     return NextResponse.json(
-      { success: false, error: 'Failed to transfer' },
+      { success: false, error: getMessage('errors', 'failedTo', {'name': transfer}) },
       { status: 400 }
     );
   }

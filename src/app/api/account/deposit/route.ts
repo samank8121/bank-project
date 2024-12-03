@@ -1,3 +1,4 @@
+import { getMessage } from '@/messages';
 import prisma from '@/shared/data/prisma';
 import { NextResponse } from 'next/server';
 
@@ -20,8 +21,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, balance: account.balance });
   } catch (error) {
     console.log(error);
+    const deposit = getMessage('account', 'deposit');
     return NextResponse.json(
-      { success: false, error: 'Failed to deposit' },
+      { success: false, error: getMessage('errors', 'failedTo', {'name': deposit}) },
       { status: 400 }
     );
   }

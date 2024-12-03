@@ -1,3 +1,4 @@
+import { getMessage } from '@/messages';
 import prisma from '@/shared/data/prisma';
 import { NextResponse } from 'next/server';
 
@@ -21,8 +22,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, account });
   } catch (error) {
     console.log(error);
+    const create = getMessage('account', 'create');
     return NextResponse.json(
-      { success: false, error: 'Failed to create account' },
+      { success: false, error: getMessage('errors', 'failedTo', {'name': create}) },
       { status: 400 }
     );
   }

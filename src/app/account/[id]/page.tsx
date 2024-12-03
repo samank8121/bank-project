@@ -4,6 +4,7 @@ import AccountStatement from '@/components/account-statement';
 import { Metadata } from 'next';
 import styles from './page.module.scss';
 import { getBaseAccount } from '@/shared/data/account/get-account';
+import { getMessage } from '@/messages';
 
 export const metadata: Metadata = {
   title: "Account Page",
@@ -23,7 +24,7 @@ export default async function AccountPage({
 
   return (
     <main className={styles.accountPage}>
-      <h1 className={styles.title}>Account: {account.iban}</h1>
+      <h1 className={styles.title}>{getMessage('account', 'accountInfo', {iban: account.iban})}</h1>
       <AccountOperations
         accountId={account.id}
         initialBalance={account.balance}
