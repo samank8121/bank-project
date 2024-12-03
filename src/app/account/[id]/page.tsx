@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 export default async function AccountPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>
 }) {
-  const { id } = await params;
+  const id = (await params).id;
   const account = await getBaseAccount(id);
   if (!account) {
     notFound();
