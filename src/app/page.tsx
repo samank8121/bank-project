@@ -6,8 +6,8 @@ import { getAllAcounts } from '@/shared/data/account/get-account';
 import { getMessage } from '@/messages';
 
 export const metadata: Metadata = {
-  title: 'Home Page',
-  description: 'Home Page',
+  title: getMessage('meta', 'homeTitle'),
+  description: getMessage('meta', 'homeDescription'),
 };
 export default async function Home() {
   const accounts = await getAllAcounts();

@@ -4,8 +4,8 @@ import styles from './page.module.scss';
 import { getMessage } from '@/messages';
 
 export const metadata: Metadata = {
-  title: 'Create Page',
-  description: 'Create Page',
+  title: getMessage('meta', 'createAccountTitle'),
+  description: getMessage('meta', 'createAccountDescription'),
 };
 export default function CreateAccount() {
   return (

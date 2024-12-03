@@ -7,8 +7,8 @@ import { getBaseAccount } from '@/shared/data/account/get-account';
 import { getMessage } from '@/messages';
 
 export const metadata: Metadata = {
-  title: "Account Page",
-  description: "Account Page",
+  title: getMessage('meta', 'accountTitle'),
+  description: getMessage('meta', 'accountDescription'),
 };
 
 export default async function AccountPage({

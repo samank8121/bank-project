@@ -24,6 +24,17 @@ export const messages = {
     initialBalance: 'Initial Balance:',
     createSuccessfully: 'Account created successfully!'
   },
+  meta:
+  {
+    layoutTitle:'Bank App',
+    layoutDescription:'Bank App Description',
+    homeTitle:'Home Page',
+    homeDescription:'Home Page Description',
+    accountTitle:'Account Page',
+    accountDescription:'Account Page Description',
+    createAccountTitle:'Create Account Page',
+    createAccountDescription:'Create Account Page Description',
+  },
   errors: {
     failedTo: 'Failed to {name}',
   },

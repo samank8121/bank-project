@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
+import { getMessage } from '@/messages';
 
 export const metadata: Metadata = {
-  title: 'Bank App',
-  description: 'Bank App',
+  title: getMessage('meta', 'layoutTitle'),
+  description: getMessage('meta', 'layoutDescription'),
 };
 
 export default function RootLayout({
