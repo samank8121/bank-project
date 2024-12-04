@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { fetchPost } from '@/shared/utils/fetch-helper';
 import styles from './account-operation.module.scss';
 import RadioGroup from '../radio-group';
-import { useMessage } from '@/shared/hooks/useMessage';
+import { useMessage } from '@/shared/hooks/message';
 import { capitalizeFirstLetter } from '@/shared/utils/capitalize';
 import { getMessage } from '@/messages';
 

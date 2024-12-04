@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from './create-account-form.module.scss'
-import { useMessage } from '@/shared/hooks/useMessage';
+import styles from './create-account-form.module.scss';
+import { useMessage } from '@/shared/hooks/message';
+import { createAccountSchema } from '@/shared/validation/account';
+import { parseError } from '@/shared/utils/parse-error';
 
 export default function CreateAccountForm() {
   const [iban, setIban] = useState('');
@@ -13,6 +15,15 @@ export default function CreateAccountForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validatedFields = createAccountSchema().safeParse({
+      iban,
+      initialBalance:parseFloat(initialBalance),      
+    });
+
+    if (!validatedFields.success) {
+      const errorMsg = parseError(validatedFields.error);
+      return alert(errorMsg);
+    }
     const response = await fetch('/api/account/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +45,9 @@ export default function CreateAccountForm() {
   return (
     <form onSubmit={handleSubmit} className={styles.accountForm}>
       <div className={styles.formGroup}>
-        <label htmlFor='iban' className={styles.label}>{getMessage('account','IBAN')}</label>
+        <label htmlFor='iban' className={styles.label}>
+          {getMessage('account', 'IBAN')}
+        </label>
         <input
           type='text'
           id='iban'
@@ -45,19 +58,23 @@ export default function CreateAccountForm() {
         />
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor='initialBalance' className={styles.label}>{getMessage('account','initialBalance')}</label>
+        <label htmlFor='initialBalance' className={styles.label}>
+          {getMessage('account', 'initialBalance')}
+        </label>
         <input
           type='number'
           id='initialBalance'
           value={initialBalance}
           onChange={(e) => setInitialBalance(e.target.value)}
           required
-          min='0'
+          min='0.01'
           step='0.01'
           className={styles.input}
         />
       </div>
-      <button type='submit' className={styles.submitButton}>{getMessage('account','createAccount')}</button>
+      <button type='submit' className={styles.submitButton}>
+        {getMessage('account', 'createAccount')}
+      </button>
     </form>
   );
 }

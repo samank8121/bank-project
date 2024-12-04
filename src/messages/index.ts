@@ -22,6 +22,7 @@ export const messages = {
     IBAN: 'IBAN:',
     toIBAN: 'To IBAN',
     initialBalance: 'Initial Balance:',
+    positiveAmount: 'it must be positive amount',
     createSuccessfully: 'Account created successfully!'
   },
   meta:
