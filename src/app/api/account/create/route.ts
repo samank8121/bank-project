@@ -1,13 +1,20 @@
 import { getMessage } from '@/messages';
 import prisma from '@/shared/data/prisma';
-import { isValidIBAN } from '@/shared/utils/iban';
+import { parseError } from '@/shared/utils/parse-error';
+import { createAccountSchema } from '@/shared/validation/account';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   const { iban, initialBalance } = await req.json();
-  if (!isValidIBAN(iban)) {
+  const validatedFields = createAccountSchema().safeParse({
+    iban,
+    initialBalance,      
+  });
+
+  if (!validatedFields.success) {
+    const errorMsg = parseError(validatedFields.error);
     return NextResponse.json(
-      { success: false, error: getMessage('account','invalidIban') },
+      { success: false, error: errorMsg },
       { status: 400 }
     );
   }

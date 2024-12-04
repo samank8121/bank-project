@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation';
 import { fetchPost } from '@/shared/utils/fetch-helper';
 import styles from './account-operation.module.scss';
 import RadioGroup from '../radio-group';
-import { useMessage } from '@/shared/hooks/useMessage';
+import { useMessage } from '@/shared/hooks/message';
 import { capitalizeFirstLetter } from '@/shared/utils/capitalize';
 import { getMessage } from '@/messages';
+import clsx from 'clsx';
 
 type AccountOperationsProps = {
   accountId: string;
@@ -74,7 +75,7 @@ const AccountOperations: FC<AccountOperationsProps> = ({
           type='number'
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder={getMessage('account','amount')}
+          placeholder={getMessage('account', 'amount')}
           className={styles.input}
         />
         {operation === 'transfer' && (
@@ -82,13 +83,13 @@ const AccountOperations: FC<AccountOperationsProps> = ({
             type='text'
             value={toIban}
             onChange={(e) => setToIban(e.target.value)}
-            placeholder={getMessage('account','toIBAN')}
+            placeholder={getMessage('account', 'toIBAN')}
             className={styles.input}
           />
         )}
 
         <button
-          className={`${styles.button} ${styles[operation]}`}
+          className={clsx(styles.button, styles[operation])}
           onClick={handleOperation}
         >
           {capitalizeFirstLetter(operation)}
