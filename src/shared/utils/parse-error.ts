@@ -1,11 +1,11 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const parseError = (error: z.ZodError) => {
-  let errorMsg = '';
-  error.errors.forEach((e) => {
-    const field = e.path[0];
-    const message = e.message;
-    errorMsg += `${field}: ${message} \n`;
+  const result = error.errors.map((ce) => {
+    return {
+      path: ce.path.toString(),
+      message: ce.message,
+    };
   });
-  return errorMsg;
+  return result;
 };

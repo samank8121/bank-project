@@ -5,28 +5,32 @@ import { useRouter } from 'next/navigation';
 import styles from './create-account-form.module.scss';
 import { useMessage } from '@/shared/hooks/message';
 import { createAccountSchema } from '@/shared/validation/account';
-import { parseError } from '@/shared/utils/parse-error';
+import { useError } from '@/shared/hooks/error';
+import InputValidation from '@/components/input-validation';
+import { fetchPost } from '@/shared/utils/fetch-helper';
+
+type FieldType = 'iban' | 'initialBalance';
 
 export default function CreateAccountForm() {
   const [iban, setIban] = useState('');
   const [initialBalance, setInitialBalance] = useState('');
   const router = useRouter();
   const getMessage = useMessage();
+  const { getError, setError } = useError();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const validatedFields = createAccountSchema().safeParse({
       iban,
-      initialBalance:parseFloat(initialBalance),      
+      initialBalance: parseFloat(initialBalance),
     });
 
     if (!validatedFields.success) {
-      const errorMsg = parseError(validatedFields.error);
-      return alert(errorMsg);
+      setError(validatedFields.error);
+      return;
     }
-    const response = await fetch('/api/account/create', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetchPost({
+      endpoint: '/api/account/create',
       body: JSON.stringify({
         iban,
         initialBalance: parseFloat(initialBalance),
@@ -38,7 +42,13 @@ export default function CreateAccountForm() {
       alert(getMessage('account', 'createSuccessfully'));
       router.push('/');
     } else {
-      alert(data.error);
+      if (data.error) {
+        if (Array.isArray(data.error)) {
+          setError(data.error);
+        } else {
+          alert(data.error);
+        }
+      }
     }
   };
 
@@ -48,20 +58,20 @@ export default function CreateAccountForm() {
         <label htmlFor='iban' className={styles.label}>
           {getMessage('account', 'IBAN')}
         </label>
-        <input
-          type='text'
+        <InputValidation
+           type='text'
           id='iban'
           value={iban}
           onChange={(e) => setIban(e.target.value)}
-          className={styles.input}
           required
+          error={getError<FieldType>('iban')}
         />
       </div>
       <div className={styles.formGroup}>
         <label htmlFor='initialBalance' className={styles.label}>
           {getMessage('account', 'initialBalance')}
         </label>
-        <input
+        <InputValidation
           type='number'
           id='initialBalance'
           value={initialBalance}
@@ -69,8 +79,8 @@ export default function CreateAccountForm() {
           required
           min='0.01'
           step='0.01'
-          className={styles.input}
-        />
+          error={getError<FieldType>('initialBalance')}
+        />        
       </div>
       <button type='submit' className={styles.submitButton}>
         {getMessage('account', 'createAccount')}
