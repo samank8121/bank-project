@@ -1,4 +1,5 @@
 import AccountList from '@/components/account-list';
+import { unstable_noStore as noStore } from 'next/cache';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import styles from './page.module.scss';
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   description: getMessage('meta', 'homeDescription'),
 };
 export default async function Home() {
+  noStore();
   const accounts = await getAllAcounts();
 
   return (
