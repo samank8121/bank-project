@@ -12,15 +12,24 @@ model Account {
   iban          String        @unique
   balance       Float         @default(0)
   transactions  Transaction[]
+
+  @@map("account")
+}
+enum TransactionType {
+  DEPOSIT
+  WITHDRAW
+  TRANSFER
 }
 
 model Transaction {
   id            String   @id @default(cuid())
   amount        Float
-  type          String   // "deposit", "withdraw", "transfer"
+  type          TransactionType
   date          DateTime @default(now())
-  accountId     String
+  accountId     String  @map("account_id")
   account       Account  @relation(fields: [accountId], references: [id])
-  toAccountIban String?
+  toAccountIban String? @map("to_account_iban")
+
+  @@map("transaction")
 }
 

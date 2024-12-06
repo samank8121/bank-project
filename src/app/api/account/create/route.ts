@@ -1,5 +1,5 @@
 import { getMessage } from '@/messages';
-import prisma from '@/shared/data/prisma';
+import prisma, { TransactionType } from '@/shared/data/prisma';
 import { parseError } from '@/shared/utils/parse-error';
 import { createAccountSchema } from '@/shared/validation/account';
 import { NextResponse } from 'next/server';
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         transactions: {
           create: {
             amount: initialBalance,
-            type: 'deposit',
+            type: TransactionType.DEPOSIT,
           },
         },
       },

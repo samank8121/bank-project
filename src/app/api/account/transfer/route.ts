@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/shared/data/prisma';
+import prisma, { TransactionType } from '@/shared/data/prisma';
 import { isValidIBAN } from '@/shared/utils/iban';
 import { getMessage } from '@/messages';
 
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
           transactions: {
             create: {
               amount: -amount,
-              type: 'transfer',
+              type: TransactionType.TRANSFER,
               toAccountIban: toIban,
             },
           },
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
           transactions: {
             create: {
               amount: amount,
-              type: 'transfer',
+              type: TransactionType.TRANSFER,
               toAccountIban: fromAccount.iban,
             },
           },

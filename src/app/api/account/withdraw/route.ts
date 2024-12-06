@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/shared/data/prisma';
+import prisma, { TransactionType } from '@/shared/data/prisma';
 import { getMessage } from '@/messages';
 
 export async function POST(req: Request) {
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
         transactions: {
           create: {
             amount: -amount,
-            type: 'withdraw',
+            type: TransactionType.WITHDRAW,
           },
         },
       },
